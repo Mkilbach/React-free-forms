@@ -1,8 +1,8 @@
-require("@babel/polyfill");
+require("@babel/polyfill/noConflict");
 
 module.exports = {
   entry: {
-    main: ["@babel/polyfill", "./src/js/index.js"]
+    main: ["@babel/polyfill/noConflict", "./src/js/index.js"]
   },
   module: {
     rules: [
