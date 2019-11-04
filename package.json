@@ -6,7 +6,7 @@
   "scripts": {
     "prod": "webpack --config webpack.prod.js"
   },
-  "keywords": [],
+  "keywords": ["react", "form", "easy", "simple", "free", "input"],
   "author": "Mateusz Kilbach",
   "license": "MIT",
   "homepage": "https://github.com/Mkilbach/React-free-forms#readme",
