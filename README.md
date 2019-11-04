@@ -15,7 +15,9 @@ React free forms is a React library that will help you implement form into your 
  - tel
 
 ## Instalation
-TBA
+```
+npm i react-free-forms
+```
 
 ## How to use
 
