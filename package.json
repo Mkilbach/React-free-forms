@@ -1,6 +1,6 @@
 {
   "name": "react-free-forms",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Component that will help you create form simple and easy way",
   "main": "./public/main.min.js",
   "scripts": {
