@@ -110,6 +110,7 @@ export default class Form extends Component {
     }
 
     runRecaptcha = () => {
+        this.recaptchaRef.current.reset();
         if (!this.recaptchaRef.current.getValue()) this.recaptchaRef.current.execute();
         else console.error('no recaptcha ref');
     }
