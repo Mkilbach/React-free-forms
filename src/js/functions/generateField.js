@@ -70,6 +70,7 @@ export function generatePasswordField(commonProps) {
                 {...commonProps}
                 placeholder={placeholder}
                 type={showPassword ? 'text' : 'password'}
+                autoComplete='new-password'
             />
             <img
                 id={id + '_eye'}
