@@ -110,7 +110,6 @@ export default class Form extends Component {
     }
 
     runRecaptcha = () => {
-        this.recaptchaRef.current.reset();
         if (!this.recaptchaRef.current.getValue()) this.recaptchaRef.current.execute();
         else console.error('no recaptcha ref');
     }
@@ -119,7 +118,8 @@ export default class Form extends Component {
         const { onSubmit } = this.props;
         if (onSubmit) {
             code && onSubmit(this.createResultObj({ recaptchaCode: code }));
-        } 
+            this.recaptchaRef.current.reset();
+        }
     }
 
     // DEEP CLONE OF ALL COMPONENT CHILDREN TO ASSIGN A REF AND ADDITIONAL PROPS TO ALL INPUT COMPONENTS WITHIN
