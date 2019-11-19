@@ -35,6 +35,7 @@ export default class Input extends Component {
         requirederrortext: PropTypes.string,
         customRegex: PropTypes.string,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }
 
     // BINDING IMPORTED FUNCTIONS
@@ -52,7 +53,12 @@ export default class Input extends Component {
     // STATE
     state = {
         valid: false,
-        value: this.props.defaultValue || '',
+        value: this.props.value !== undefined
+            ? this.props.value
+            : (this.props.defaultValue !== undefined
+                ? this.props.defaultValue
+                : ''
+            ),
         validate: this.props.validateform === 'true' ? true : false,
         errorText: '',
         showPassword: false
@@ -62,10 +68,14 @@ export default class Input extends Component {
         this.validateInput();
     }
 
-    componentDidUpdate(prevProps) {
-        const { validateform } = this.props;
+    async componentDidUpdate(prevProps) {
+        const { validateform, value } = this.props;
         if (prevProps.validateform !== validateform) {
             this.setState({ validate: validateform === 'true' ? true : false });
+        }
+        if (prevProps.value !== value) {
+            await this.setStateAsync({ value });
+            await this.validateInput();
         }
     }
 
@@ -87,10 +97,12 @@ export default class Input extends Component {
         SET NEW VALUE AND IMMIDIATELY VALIDATE IT USING NEW STATE
     */
     setNewValue = async event => {
-        const { onBeforeChange, onAfterChange } = this.props;
+        const { onBeforeChange, onAfterChange, value } = this.props;
         const e = { ...event };
         const target = e.target;
         let newValue = null;
+
+        if(value !== undefined) return false;
 
         // RETRIEVE INPUT VALUE BASED ON ITS TYPE
         if (target.type === 'checkbox') newValue = target.checked;

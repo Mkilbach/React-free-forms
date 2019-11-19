@@ -1,13 +1,15 @@
+require("@babel/polyfill/noConflict");
 const path = require("path");
-const common = require("./webpack.common");
-const merge = require("webpack-merge");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
-module.exports = merge(common, {
+module.exports = {
   mode: "production",
+  entry: {
+    main: ["@babel/polyfill/noConflict", "./src/js/index.js"]
+  },
   output: {
     filename: "[name].min.js",
     path: path.resolve(__dirname, "public"),
@@ -38,7 +40,24 @@ module.exports = merge(common, {
           "css-loader",
           "sass-loader"
         ]
+      },
+      {
+        test: /\.(svg|png|jpg|gif)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[name].[hash].[ext]",
+            outputPath: "imgs"
+          }
+        }
+      },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+        }
       }
     ]
   }
-});
+};
