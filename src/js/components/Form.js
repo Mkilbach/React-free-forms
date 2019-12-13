@@ -135,7 +135,7 @@ export default class Form extends Component {
                     const { inputRefs } = this.state;
                     const grandChildren = child.props && child.props.children ? child.props.children : null;
 
-                    const newProps = { ...child.props, ...additionalProps };
+                    const newProps = { ...child.props };
 
                     // ASSIGN KEY TO A NEW CHILD
                     newProps.key = key ? `${key}-${childNumber}` : childNumber;
@@ -149,8 +149,10 @@ export default class Form extends Component {
                     if (child.type === Input) {
                         const inputRef = React.createRef();
                         newProps.ref = inputRef;
+
                         await this.setStateAsync({ inputRefs: [...inputRefs, inputRef] });
-                        clonedChildren.push(React.cloneElement(child, newProps));
+
+                        clonedChildren.push(React.cloneElement(child, {...newProps, ...additionalProps}));
                     } else {
                         clonedChildren.push(child);
                     }
