@@ -131,7 +131,7 @@ export default class Form extends Component {
             children = this.convertToArray(children);
 
             for (const child of children) {
-                if (React.isValidElement(child) && child.type === Input) {
+                if (React.isValidElement(child)) {
                     const { inputRefs } = this.state;
                     const grandChildren = child.props && child.props.children ? child.props.children : null;
 
@@ -140,19 +140,20 @@ export default class Form extends Component {
                     // ASSIGN KEY TO A NEW CHILD
                     newProps.key = key ? `${key}-${childNumber}` : childNumber;
 
+                    // RECCURENCY FOR DEEP SEARCH
+                    if (grandChildren) {
+                        newProps.children = await this.cloneChildrenWithNewProps(grandChildren, additionalProps, newProps.key);
+                    }
+                    
                     // CHECK IF CURRENT CHILD IS AN INPUT COMPONENT TO GIVE IT A REF
                     if (child.type === Input) {
                         const inputRef = React.createRef();
                         newProps.ref = inputRef;
                         await this.setStateAsync({ inputRefs: [...inputRefs, inputRef] });
+                        clonedChildren.push(React.cloneElement(child, newProps));
+                    } else {
+                        clonedChildren.push(child);
                     }
-
-                    // RECCURENCY FOR DEEP SEARCH
-                    if (grandChildren) {
-                        newProps.children = await this.cloneChildrenWithNewProps(grandChildren, additionalProps, newProps.key);
-                    }
-
-                    clonedChildren.push(React.cloneElement(child, newProps));
                 } else {
                     clonedChildren.push(child);
                 }

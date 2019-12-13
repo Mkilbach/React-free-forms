@@ -1,12 +1,19 @@
 {
   "name": "react-free-forms",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Component that will help you create form simple and easy way",
   "main": "./public/main.min.js",
   "scripts": {
     "prod": "webpack --config webpack.prod.js"
   },
-  "keywords": ["react", "form", "easy", "simple", "free", "input"],
+  "keywords": [
+    "react",
+    "form",
+    "easy",
+    "simple",
+    "free",
+    "input"
+  ],
   "author": "Mateusz Kilbach",
   "license": "MIT",
   "homepage": "https://github.com/Mkilbach/React-free-forms#readme",
