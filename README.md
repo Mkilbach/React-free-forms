@@ -60,7 +60,7 @@ Only two props are required, others are optional.
 | id                | String        | Custom id for `<input>` tag |
 | type              | String        | [Supported types](#Suppoted-input-types) |
 | rule              | String        | [Input Rules](#Input-rules) |
-| inputOptions      | Array         | Triggers when any form input is focused |
+| inputOptions      | Array         | Array of options for radio and select inputs |
 | inputClass        | String        | Custom class for `<input>` tag |
 | errorClass        | String        | Custom class for tag holding error |
 | labelClass        | String        | Custom class for `<label>` tag |
@@ -163,6 +163,11 @@ When using `Input` component as a wrapper you can include only one `<input>`/`<s
             <input type="text" />
         </div>
     </Input>
+    <div>
+        <div>
+            <Input required={true} name='nested_input_component' />
+        </div>
+    </div>
     <button type='submit'>submit</button>
 </Form>
 ```
