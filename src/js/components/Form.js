@@ -42,7 +42,7 @@ export default class Form extends Component {
     }
 
     async componentDidUpdate(prevProps) {
-        if(prevProps.children !== this.props.children) {
+        if (prevProps.children !== this.props.children) {
             await this.setClonedChildren();
         }
     }
@@ -134,7 +134,6 @@ export default class Form extends Component {
                 if (React.isValidElement(child)) {
                     const { inputRefs } = this.state;
                     const grandChildren = child.props && child.props.children ? child.props.children : null;
-
                     const newProps = { ...child.props };
 
                     // ASSIGN KEY TO A NEW CHILD
@@ -144,7 +143,7 @@ export default class Form extends Component {
                     if (grandChildren) {
                         newProps.children = await this.cloneChildrenWithNewProps(grandChildren, additionalProps, newProps.key);
                     }
-                    
+
                     // CHECK IF CURRENT CHILD IS AN INPUT COMPONENT TO GIVE IT A REF
                     if (child.type === Input) {
                         const inputRef = React.createRef();
@@ -152,9 +151,9 @@ export default class Form extends Component {
 
                         await this.setStateAsync({ inputRefs: [...inputRefs, inputRef] });
 
-                        clonedChildren.push(React.cloneElement(child, {...newProps, ...additionalProps}));
+                        clonedChildren.push(React.cloneElement(child, { ...newProps, ...additionalProps }));
                     } else {
-                        clonedChildren.push(child);
+                        clonedChildren.push(React.cloneElement(child, { ...newProps }));
                     }
                 } else {
                     clonedChildren.push(child);
